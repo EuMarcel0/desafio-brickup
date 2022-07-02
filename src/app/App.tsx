@@ -1,11 +1,10 @@
-import { ThemeProvider } from '@mui/material';
-import { LigthTheme } from './shared/theme';
+import { AppThemeProvider } from './shared/contexts';
 
 export const App = () => {
-
 	return (
-		<ThemeProvider theme={LigthTheme}>
+		<AppThemeProvider>
 			<div>Teste</div>
-		</ThemeProvider>
+		</AppThemeProvider>
+
 	);
 };
