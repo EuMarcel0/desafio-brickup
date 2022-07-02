@@ -6,7 +6,7 @@ export const ListingTasks: React.FC = () => {
 		<LayoutBasePage
 			title='Lista de tarefas'
 			icon='assignment'
-			toolbar={<ToolbarListing />}
+			toolbar={<ToolbarListing buttonText='Novo' />}
 		>
 			...
 		</LayoutBasePage>
