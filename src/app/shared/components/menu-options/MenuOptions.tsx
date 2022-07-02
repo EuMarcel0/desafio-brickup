@@ -3,6 +3,7 @@ import { Box, Icon, IconButton, ListItemButton, ListItemIcon, ListItemText, Typo
 import { Link } from 'react-router-dom';
 import { useAppThemeContext } from '../../contexts';
 
+
 export const MenuOptions = () => {
 	const { toggleTheme } = useAppThemeContext();
 
@@ -16,7 +17,7 @@ export const MenuOptions = () => {
 						</ListItemIcon>
 						<ListItemText>
 							<Typography variant='caption'>
-								Página Incial
+								Página Inicial
 							</Typography>
 						</ListItemText>
 					</ListItemButton>
@@ -28,7 +29,7 @@ export const MenuOptions = () => {
 						</ListItemIcon>
 						<ListItemText>
 							<Typography variant='caption'>
-								Serviços
+								Tarefas
 							</Typography>
 						</ListItemText>
 					</ListItemButton>

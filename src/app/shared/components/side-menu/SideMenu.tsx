@@ -1,4 +1,5 @@
-import { Avatar, Box, Divider, Drawer, Typography, useTheme } from '@mui/material';
+import { Avatar, Box, Button, Divider, Drawer, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { useMenuOpenContext } from '../../contexts';
 import { MenuOptions } from '../menu-options/MenuOptions';
 
 interface ISideMenu {
@@ -6,12 +7,13 @@ interface ISideMenu {
 	userName?: string;
 }
 
-export const SideMenu: React.FC<ISideMenu> = ({ children, userName = 'Olá, Rafael' }) => {
+export const SideMenu: React.FC<ISideMenu> = ({ children, userName = 'Olá, Dev' }) => {
 	const theme = useTheme();
-
+	const smDown = useMediaQuery(theme.breakpoints.down('sm'));
+	const { isMenuOpen, toggleMenuOpen } = useMenuOpenContext();
 	return (
 		<>
-			<Drawer variant='permanent'>
+			<Drawer open={isMenuOpen} variant={smDown ? 'temporary' : 'permanent'} onClose={toggleMenuOpen}>
 				<Box width={theme.spacing(28)}>
 					<Box width='100%'
 						height='100px'
@@ -21,13 +23,13 @@ export const SideMenu: React.FC<ISideMenu> = ({ children, userName = 'Olá, Rafa
 						alignItems='center'
 					>
 						<Avatar sx={{ mb: 1 }} />
-						<Typography variant='caption'>{userName}</Typography>
+						<Typography variant='caption' sx={{ fontSize: '12px' }}>{userName}</Typography>
 					</Box>
 					<Divider />
 				</Box>
 				<MenuOptions />
 			</Drawer>
-			<Box height='100vh' marginLeft={theme.spacing(28)}>
+			<Box height='100vh' marginLeft={smDown ? theme.spacing(0) : theme.spacing(28)}>
 				{children}
 			</Box>
 		</>
