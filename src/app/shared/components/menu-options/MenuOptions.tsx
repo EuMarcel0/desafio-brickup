@@ -1,4 +1,4 @@
-import { Brightness4 } from '@mui/icons-material';
+import { ArrowBackIos, ArrowLeft, Brightness4 } from '@mui/icons-material';
 import { Box, Icon, IconButton, ListItemButton, ListItemIcon, ListItemText, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { Link, useMatch, useNavigate, useResolvedPath } from 'react-router-dom';
 import { useAppThemeContext, useMenuOpenContext } from '../../contexts';
@@ -37,6 +37,8 @@ const MenuItemLink: React.FC<IMenuItemLink> = ({ to, label, icon, onClick }) => 
 export const MenuOptions = () => {
 	const { toggleTheme } = useAppThemeContext();
 	const { toggleMenuOpen } = useMenuOpenContext();
+	const theme = useTheme();
+	const smDown = useMediaQuery(theme.breakpoints.down('sm'));
 
 	return (
 		<Box display='flex' flexDirection='column' height='100%'>
@@ -56,8 +58,13 @@ export const MenuOptions = () => {
 			</Box>
 			<Box flex={1} position='absolute' top={0} right={0}>
 				<IconButton onClick={toggleTheme}>
-					<Brightness4 />
+					<Brightness4 sx={{ fontSize: '17px' }} />
 				</IconButton>
+				{smDown &&
+					<IconButton onClick={toggleMenuOpen}>
+						<ArrowLeft sx={{ fontSize: '17px' }} />
+					</IconButton>
+				}
 			</Box>
 		</Box >
 	);

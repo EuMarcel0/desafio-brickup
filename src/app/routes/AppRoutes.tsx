@@ -1,5 +1,6 @@
 import { Button } from '@mui/material';
 import { Navigate, Route, Routes } from 'react-router-dom';
+import { ListingTasks } from '../pages';
 import { useAppThemeContext, useMenuOpenContext } from '../shared/contexts';
 
 export const AppRoutes = () => {
@@ -10,7 +11,7 @@ export const AppRoutes = () => {
 	return (
 		<Routes>
 			<Route path='/pagina-inicial' element={<p>Página Inicial <Button onClick={toggleMenuOpen}></Button></p>} />
-			<Route path='//tarefas' element={<p>Página de tarefas</p>} />
+			<Route path='/tarefas' element={<ListingTasks />} />
 
 			<Route path='*' element={<Navigate to='/pagina-inicial' />} />
 		</Routes>

@@ -1,2 +1,4 @@
 export * from './side-menu/SideMenu';
 export * from './menu-options/MenuOptions';
+export * from './toolbar/ToolbarDetails';
+export * from './toolbar/ToolbarListing';
