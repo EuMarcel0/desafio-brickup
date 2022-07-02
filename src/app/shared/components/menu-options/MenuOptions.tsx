@@ -1,45 +1,64 @@
 import { Brightness4 } from '@mui/icons-material';
 import { Box, Icon, IconButton, ListItemButton, ListItemIcon, ListItemText, Typography, useMediaQuery, useTheme } from '@mui/material';
-import { Link } from 'react-router-dom';
-import { useAppThemeContext } from '../../contexts';
+import { Link, useMatch, useNavigate, useResolvedPath } from 'react-router-dom';
+import { useAppThemeContext, useMenuOpenContext } from '../../contexts';
 
+interface IMenuItemLink {
+	to: string;
+	label: string;
+	icon: string;
+	onClick: (() => void) | undefined;
+}
+
+const MenuItemLink: React.FC<IMenuItemLink> = ({ to, label, icon, onClick }) => {
+	const navigate = useNavigate();
+	const resolvedPath = useResolvedPath(to);
+	const match = useMatch({ path: resolvedPath.pathname, end: false });
+
+	const handleClick = () => {
+		navigate(to);
+		onClick?.();
+	};
+
+	return (
+		<ListItemButton onClick={handleClick} selected={!!match}>
+			<ListItemIcon>
+				<Icon>{icon}</Icon>
+			</ListItemIcon>
+			<ListItemText>
+				<Typography variant='caption'>
+					{label}
+				</Typography>
+			</ListItemText>
+		</ListItemButton>
+	);
+};
 
 export const MenuOptions = () => {
 	const { toggleTheme } = useAppThemeContext();
+	const { toggleMenuOpen } = useMenuOpenContext();
 
 	return (
 		<Box display='flex' flexDirection='column' height='100%'>
 			<Box>
-				<Link to='/pagina-inicial'>
-					<ListItemButton >
-						<ListItemIcon>
-							<Icon>home</Icon>
-						</ListItemIcon>
-						<ListItemText>
-							<Typography variant='caption'>
-								Página Inicial
-							</Typography>
-						</ListItemText>
-					</ListItemButton>
-				</Link>
-				<Link to='/servicos'>
-					<ListItemButton >
-						<ListItemIcon>
-							<Icon>ballot</Icon>
-						</ListItemIcon>
-						<ListItemText>
-							<Typography variant='caption'>
-								Tarefas
-							</Typography>
-						</ListItemText>
-					</ListItemButton>
-				</Link>
+				<MenuItemLink
+					to='/pagina-inicial'
+					icon='home'
+					label='Página inicial'
+					onClick={toggleMenuOpen}
+				/>
+				<MenuItemLink
+					to='/tarefas'
+					icon='assignment'
+					label='Tarefas'
+					onClick={toggleMenuOpen}
+				/>
 			</Box>
-			<Box flex={1} position='fixed' top={0} right={0}>
+			<Box flex={1} position='absolute' top={0} right={0}>
 				<IconButton onClick={toggleTheme}>
 					<Brightness4 />
 				</IconButton>
 			</Box>
-		</Box>
+		</Box >
 	);
 };
