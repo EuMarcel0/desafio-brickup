@@ -1,1 +1,2 @@
-export * from './listing-tasks/ListingTasks';
+export * from './tasks/ListingTasks';
+export * from './tasks/EditTasks';

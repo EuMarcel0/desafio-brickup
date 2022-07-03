@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import { Box, Button, Icon, IconButton, LinearProgress, Pagination, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow } from '@mui/material';
 import { IListingJobsDataType, JobService } from '../../shared/services/api/job/JobService';
@@ -17,6 +17,7 @@ export const ListingTasks: React.FC = () => {
 	const { debounce } = useDebounce();
 	const { themeName } = useAppThemeContext();
 	const [loading, setLoading] = useState(true);
+	const navigate = useNavigate();
 
 	const search = useMemo(() => {
 		return searchParams.get('search') || '';
@@ -76,6 +77,7 @@ export const ListingTasks: React.FC = () => {
 				textOfInput={search}
 				handleTextInput={text => setSearchParams({ search: text, page: '1' }, { replace: true })}
 				handleClearInput={() => setSearchParams('')}
+				onClick={() => navigate('/tasks/edit/new')}
 			/>}
 		>
 			{loading &&
@@ -106,7 +108,7 @@ export const ListingTasks: React.FC = () => {
 								</TableCell>
 								<TableCell align='right' sx={themeName === 'Light' ? { borderColor: '#CCC' } : { borderColor: '#545454' }}>
 									<Box display='flex' justifyContent='end' alignItems='center' gap={2}>
-										<IconButton>
+										<IconButton onClick={() => navigate(`/tasks/edit/${item.id}`)}>
 											<Icon>edit</Icon>
 										</IconButton>
 										<IconButton onClick={() => handleDelete(item.id)}>
