@@ -40,6 +40,20 @@ const getAll = async (page = 1, filter = '') : Promise<TJobsDataProps | Error> =
 	}
 };
 /**
+ * Requisition for get item by ID
+ */
+const getById = async (id: number) : Promise<IDetailsJobsDataType | Error> => {
+	try{
+		const {data} = await Api.get(`/job/${id}`);
+		if(data){
+			return data;
+		}
+		return new Error('Erro ao consultar tarefas');
+	}catch(error){
+		return new Error((error as { message: string }).message || 'Erro ao consultar os registros');
+	}
+};
+/**
  * Requisition for created new item in database
  */
 const create = async (jobData: Omit<IDetailsJobsDataType,'id'>) : Promise<number | Error> => {
@@ -55,8 +69,34 @@ const create = async (jobData: Omit<IDetailsJobsDataType,'id'>) : Promise<number
 		return new Error((error as {message: string}).message || 'Erro ao criar tarefas');
 	}
 };
+/**
+ * Requisition for updated register by id
+ */
+const updateById = async (id: number, jobData: IDetailsJobsDataType) : Promise<void | Error> => {
+	try{
+		await Api.put(`/job/${id}`, jobData);
+	}catch(error){
+		return new Error((error as { message: string }).message || 'Erro ao alterar o registro');
+	}
+};
+/**
+ * Requisition for delete item by id
+ */
+const deleteById = async (id: number) : Promise<void | Error> => {
+	try{
+		await Api.delete(`/job/${id}`);
+	}catch(error){
+		console.log(error);
+		return new Error((error as { message: string }).message || 'Erro ao deletar o registro');
+	}
+};
+
+
 
 export const JobService = {
 	getAll,
-	create
+	create,
+	updateById,
+	getById,
+	deleteById
 };

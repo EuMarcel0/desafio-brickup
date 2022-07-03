@@ -43,6 +43,29 @@ export const ListingTasks: React.FC = () => {
 		});
 	}, [search, page]);
 
+	const pageReload = () => {
+		window.location.reload();
+	};
+
+	const handleDelete = (id: number) => {
+		if (confirm('Deseja realmente apagar esta tarefa?')) {
+			JobService.deleteById(id)
+				.then((response) => {
+					if (response instanceof Error) {
+						alert(response.message);
+					} else {
+						setTasks(oldTasks => {
+							return [
+								...oldTasks.filter(oldTask => oldTask.id !== id),
+							];
+						});
+						alert('Registro apagado com sucesso!');
+						pageReload();
+					}
+				});
+		}
+	};
+
 	return (
 		<LayoutBasePage
 			title='Lista de tarefas'
@@ -85,6 +108,9 @@ export const ListingTasks: React.FC = () => {
 									<Box display='flex' justifyContent='end' alignItems='center' gap={2}>
 										<IconButton>
 											<Icon>edit</Icon>
+										</IconButton>
+										<IconButton onClick={() => handleDelete(item.id)}>
+											<Icon>delete</Icon>
 										</IconButton>
 										<Button variant='contained'>Concluir</Button>
 									</Box>
