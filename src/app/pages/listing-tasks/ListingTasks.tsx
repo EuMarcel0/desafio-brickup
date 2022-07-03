@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-import { LinearProgress, Pagination, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow } from '@mui/material';
+import { Box, LinearProgress, Pagination, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow } from '@mui/material';
 import { IListingJobsDataType, JobService } from '../../shared/services/api/job/JobService';
 import { useAppThemeContext } from '../../shared/contexts';
 import { ToolbarListing } from '../../shared/components';
@@ -29,9 +29,9 @@ export const ListingTasks: React.FC = () => {
 	useEffect(() => {
 		setLoading(true);
 		debounce(() => {
-			setLoading(false);
 			JobService.getAll(page, search)
 				.then((response) => {
+					setLoading(false);
 					if (response instanceof Error) {
 						alert(response.message);
 					} else {
@@ -56,46 +56,51 @@ export const ListingTasks: React.FC = () => {
 			/>}
 		>
 			{loading &&
-				<LinearProgress />
+				<LinearProgress sx={{ mY: '10px' }} />
 			}
 			<TableContainer component={Paper} elevation={4}>
 				<Table>
-					<TableHead>
-						<TableRow>
-							<TableCell sx={themeName === 'Light' ? { borderColor: '#CCC' } : { borderColor: '#545454' }}>Tarefa</TableCell>
-							<TableCell sx={themeName === 'Light' ? { borderColor: '#CCC' } : { borderColor: '#545454' }}>Status</TableCell>
-							<TableCell sx={themeName === 'Light' ? { borderColor: '#CCC' } : { borderColor: '#545454' }}>Imagem</TableCell>
-							<TableCell sx={themeName === 'Light' ? { borderColor: '#CCC' } : { borderColor: '#545454' }}>Ações</TableCell>
-						</TableRow>
-					</TableHead>
-					{tasks.map((item) => (
-						<TableBody key={item.id}>
+					{Environment.LIMIT_OF_ROW > 0 && totalCount > 0 &&
+						<TableHead>
 							<TableRow>
+								<TableCell sx={themeName === 'Light' ? { borderColor: '#CCC' } : { borderColor: '#545454' }}>Tarefas</TableCell>
+								<TableCell sx={themeName === 'Light' ? { borderColor: '#CCC' } : { borderColor: '#545454' }}>Status</TableCell>
+								<TableCell sx={themeName === 'Light' ? { borderColor: '#CCC' } : { borderColor: '#545454' }}>Imagem</TableCell>
+								<TableCell sx={themeName === 'Light' ? { borderColor: '#CCC' } : { borderColor: '#545454' }}>Ações</TableCell>
+							</TableRow>
+						</TableHead>
+					}
+
+					<TableBody >
+						{tasks.map((item) => (
+							<TableRow key={item.id}>
 								<TableCell sx={themeName === 'Light' ? { borderColor: '#CCC' } : { borderColor: '#545454' }}>{item.description}</TableCell>
 								<TableCell sx={themeName === 'Light' ? { borderColor: '#CCC' } : { borderColor: '#545454' }}>{item.status_finalizado}</TableCell>
 								<TableCell sx={themeName === 'Light' ? { borderColor: '#CCC' } : { borderColor: '#545454' }}>Imagem</TableCell>
 								<TableCell sx={themeName === 'Light' ? { borderColor: '#CCC' } : { borderColor: '#545454' }}>Ações</TableCell>
 							</TableRow>
-						</TableBody>
-					))}
-					<TableFooter sx={{ paddingY: '10px' }}>
-						<TableRow>
-							<TableCell colSpan={4} sx={themeName === 'Light' ? { borderColor: '#CCC' } : { borderColor: '#545454' }}>
-								Loading
-							</TableCell>
-						</TableRow>
-						<TableCell sx={themeName === 'Light' ? { borderColor: '#CCC' } : { borderColor: '#545454' }}></TableCell>
-						<TableCell sx={themeName === 'Light' ? { borderColor: '#CCC' } : { borderColor: '#545454', display: 'flex' }}>
+						))}
+					</TableBody>
+					{totalCount === 0 && !loading &&
+						<caption>{Environment.LISTING_EMPTY}</caption>
+					}
+					{totalCount > 0 && Environment.LIMIT_OF_ROW > 0 &&
+						<TableFooter sx={{ paddingY: '10px' }}>
 							{totalCount > 0 && totalCount > Environment.LIMIT_OF_ROW &&
-								<Pagination
-									count={Math.ceil(totalCount / Environment.LIMIT_OF_ROW)}
-									color="primary"
-									page={page}
-									onChange={(_, newPage) => setSearchParams({ search, page: newPage.toString() }, { replace: true })}
-								/>
+								<TableRow>
+									<TableCell sx={themeName === 'Light' ? { borderColor: '#CCC' } : { borderColor: '#545454', border: 'none' }}></TableCell>
+									<TableCell sx={themeName === 'Light' ? { borderColor: '#CCC' } : { borderColor: '#545454', border: 'none' }}>
+										<Pagination
+											count={Math.ceil(totalCount / Environment.LIMIT_OF_ROW)}
+											color="primary"
+											page={page}
+											onChange={(_, newPage) => setSearchParams({ search, page: newPage.toString() }, { replace: true })}
+										/>
+									</TableCell>
+								</TableRow>
 							}
-						</TableCell>
-					</TableFooter>
+						</TableFooter>
+					}
 				</Table>
 			</TableContainer>
 		</LayoutBasePage>
