@@ -5,6 +5,9 @@
 	outline: none;
 	font-family: 'Roboto', sans-serif;
 	text-decoration: none;
+
+	-webkit-font-smoothing: antialiased;
+  	-moz-osx-font-smoothing: grayscale;
 }
 
 a{

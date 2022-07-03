@@ -22,7 +22,7 @@ export const SideMenu: React.FC<ISideMenu> = ({ children, userName = 'Olá, Dev'
 						justifyContent='center'
 						alignItems='center'
 					>
-						<Avatar sx={{ mb: 1 }} />
+						<Avatar sx={{ mb: 1, width: '50px', height: '50px' }} src='https://imgsapp2.correiobraziliense.com.br/app/noticia_127983242361/2019/10/04/794834/20191004154953157610i.jpg' />
 						<Typography variant='caption' sx={{ fontSize: '12px' }}>{userName}</Typography>
 					</Box>
 					<Divider />

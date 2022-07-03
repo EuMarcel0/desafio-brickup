@@ -1,28 +1,14 @@
 {
   "job": [
     {
-      "id": 8,
-      "description": "Criar toggle para tema 4",
-      "status_pendente": "Pendente",
-      "status_finalizado": "Finalizado"
-    },
-    {
-      "id": 9,
-      "description": "Criar toggle para tema 5",
-      "status_pendente": "Pendente",
-      "status_finalizado": "Finalizado"
-    },
-    {
       "id": 10,
       "description": "Criar toggle para tema 6",
-      "status_pendente": "Pendente",
-      "status_finalizado": "Finalizado"
+      "status": "Pendente"
     },
     {
       "id": 11,
       "description": "Criar toggle para tema 7",
-      "status_pendente": "Pendente",
-      "status_finalizado": "Finalizado"
+      "status": "Pendente"
     }
   ]
 }

@@ -100,7 +100,7 @@ export const ListingTasks: React.FC = () => {
 						{tasks.map((item) => (
 							<TableRow key={item.id}>
 								<TableCell sx={themeName === 'Light' ? { borderColor: '#CCC' } : { borderColor: '#545454' }}>{item.description}</TableCell>
-								<TableCell sx={themeName === 'Light' ? { borderColor: '#CCC' } : { borderColor: '#545454' }}>{item.status_finalizado}</TableCell>
+								<TableCell sx={themeName === 'Light' ? { borderColor: '#CCC' } : { borderColor: '#545454' }}>{item.status}</TableCell>
 								<TableCell sx={themeName === 'Light' ? { borderColor: '#CCC' } : { borderColor: '#545454' }}>
 									<IconButton>
 										<Icon>insert_photo</Icon>
