@@ -1,21 +1,21 @@
 import { Environment } from '../../../environment';
 import Api from '../Api';
 
-interface IListingJobsDataType {
+export interface IListingJobsDataType {
 	id: number;
 	description: string;
 	status_pendente: string;
 	status_finalizado: string;
 }
 
-interface IDetailsJobsDataType {
+export interface IDetailsJobsDataType {
 	id: number;
 	description: string;
 	status_pendente: string;
 	status_finalizado: string;
 }
 
-type TJobsData = {
+type TJobsDataProps = {
 	data: IListingJobsDataType[];
 	totalCount: number;
 }
@@ -23,8 +23,8 @@ type TJobsData = {
 /**
  * Requisition for get all data of Jobs
  */
-const getAll = async (page = 1, filter = '') : Promise<TJobsData | Error> => {
-	const relativeUrl = `/job?_page=${page}&_limit=${Environment.LIMIT_OF_ROW}&descricao=${filter}`;
+const getAll = async (page = 1, filter = '') : Promise<TJobsDataProps | Error> => {
+	const relativeUrl = `/job?_page=${page}&_limit=${Environment.LIMIT_OF_ROW}&description=${filter}`;
 	try{
 		const { data, headers } = await Api.get(relativeUrl);
 		if(data){

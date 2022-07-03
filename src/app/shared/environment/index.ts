@@ -6,5 +6,9 @@ export const Environment = {
 	/**
 	 * Limit of row in page
 	 */
-	LIMIT_OF_ROW: 5
+	LIMIT_OF_ROW: 5,
+	/**
+	 * Text for result in blank in requisition
+	 */
+	LISTING_EMPTY: 'Nenhum resultado encontrado'
 };

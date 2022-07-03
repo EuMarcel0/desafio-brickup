@@ -50,7 +50,7 @@ export const MenuOptions = () => {
 					onClick={toggleMenuOpen}
 				/>
 				<MenuItemLink
-					to='/tarefas'
+					to='/tasks'
 					icon='assignment'
 					label='Tarefas'
 					onClick={toggleMenuOpen}

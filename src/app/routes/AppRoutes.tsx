@@ -11,7 +11,7 @@ export const AppRoutes = () => {
 	return (
 		<Routes>
 			<Route path='/pagina-inicial' element={<p>Página Inicial <Button onClick={toggleMenuOpen}></Button></p>} />
-			<Route path='/tarefas' element={<ListingTasks />} />
+			<Route path='/tasks' element={<ListingTasks />} />
 
 			<Route path='*' element={<Navigate to='/pagina-inicial' />} />
 		</Routes>

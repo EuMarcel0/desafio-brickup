@@ -5,16 +5,20 @@ interface IToolbarListing {
 	buttonText: string;
 	showButtonText?: boolean;
 	showInput?: boolean;
-	handleTextInput?: (newText: string) => void;
-	onClick?: (() => void) | undefined;
 	children?: React.ReactNode;
+	handleTextInput?: (newText: string) => void;
+	handleClearInput?: () => void;
+	onClick?: (() => void) | undefined;
 }
 
 export const ToolbarListing: React.FC<IToolbarListing> = ({
 	buttonText = 'Nova',
-	textOfInput,
+	textOfInput = '',
 	showInput = true,
 	showButtonText = true,
+	children,
+	handleTextInput,
+	handleClearInput,
 	onClick
 }) => {
 	return (
@@ -23,20 +27,28 @@ export const ToolbarListing: React.FC<IToolbarListing> = ({
 			component={Paper}
 			paddingY={1}
 			paddingX={1}
+			elevation={4}
 		>
 			<Box
 				display='flex'
 				justifyContent='space-between'
 			>
-				{showInput &&
-					<TextField
-						size='small'
-						autoFocus
-						label="Pesquisar..."
-						value={textOfInput}
-					/>
-				}
-
+				<Box display='flex' alignItems='center' gap={2}>
+					{showInput &&
+						<TextField
+							size='small'
+							autoFocus
+							label="Pesquisar..."
+							value={textOfInput}
+							onChange={(e) => handleTextInput?.(e.target.value)}
+						/>
+					}
+					{textOfInput.length > 0 &&
+						<Button variant='contained' onClick={handleClearInput}>
+							Limpar
+						</Button>
+					}
+				</Box>
 				{showButtonText &&
 					<Button
 						size='small'
