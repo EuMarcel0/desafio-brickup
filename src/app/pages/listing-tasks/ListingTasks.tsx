@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-import { Box, LinearProgress, Pagination, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow } from '@mui/material';
+import { Box, Button, Icon, IconButton, LinearProgress, Pagination, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow } from '@mui/material';
 import { IListingJobsDataType, JobService } from '../../shared/services/api/job/JobService';
 import { useAppThemeContext } from '../../shared/contexts';
 import { ToolbarListing } from '../../shared/components';
@@ -66,7 +66,7 @@ export const ListingTasks: React.FC = () => {
 								<TableCell sx={themeName === 'Light' ? { borderColor: '#CCC' } : { borderColor: '#545454' }}>Tarefas</TableCell>
 								<TableCell sx={themeName === 'Light' ? { borderColor: '#CCC' } : { borderColor: '#545454' }}>Status</TableCell>
 								<TableCell sx={themeName === 'Light' ? { borderColor: '#CCC' } : { borderColor: '#545454' }}>Imagem</TableCell>
-								<TableCell sx={themeName === 'Light' ? { borderColor: '#CCC' } : { borderColor: '#545454' }}>Ações</TableCell>
+								<TableCell align='right' sx={themeName === 'Light' ? { borderColor: '#CCC' } : { borderColor: '#545454' }}>Ações</TableCell>
 							</TableRow>
 						</TableHead>
 					}
@@ -76,8 +76,19 @@ export const ListingTasks: React.FC = () => {
 							<TableRow key={item.id}>
 								<TableCell sx={themeName === 'Light' ? { borderColor: '#CCC' } : { borderColor: '#545454' }}>{item.description}</TableCell>
 								<TableCell sx={themeName === 'Light' ? { borderColor: '#CCC' } : { borderColor: '#545454' }}>{item.status_finalizado}</TableCell>
-								<TableCell sx={themeName === 'Light' ? { borderColor: '#CCC' } : { borderColor: '#545454' }}>Imagem</TableCell>
-								<TableCell sx={themeName === 'Light' ? { borderColor: '#CCC' } : { borderColor: '#545454' }}>Ações</TableCell>
+								<TableCell sx={themeName === 'Light' ? { borderColor: '#CCC' } : { borderColor: '#545454' }}>
+									<IconButton>
+										<Icon>insert_photo</Icon>
+									</IconButton>
+								</TableCell>
+								<TableCell align='right' sx={themeName === 'Light' ? { borderColor: '#CCC' } : { borderColor: '#545454' }}>
+									<Box display='flex' justifyContent='end' alignItems='center' gap={2}>
+										<IconButton>
+											<Icon>edit</Icon>
+										</IconButton>
+										<Button variant='contained'>Concluir</Button>
+									</Box>
+								</TableCell>
 							</TableRow>
 						))}
 					</TableBody>
@@ -87,17 +98,25 @@ export const ListingTasks: React.FC = () => {
 					{totalCount > 0 && Environment.LIMIT_OF_ROW > 0 &&
 						<TableFooter sx={{ paddingY: '10px' }}>
 							{totalCount > 0 && totalCount > Environment.LIMIT_OF_ROW &&
-								<TableRow>
-									<TableCell sx={themeName === 'Light' ? { borderColor: '#CCC' } : { borderColor: '#545454', border: 'none' }}></TableCell>
-									<TableCell sx={themeName === 'Light' ? { borderColor: '#CCC' } : { borderColor: '#545454', border: 'none' }}>
+								<Box width='inherit'
+									display='flex'
+									justifyContent='start'
+									marginX='auto'
+								>
+
+									<Box
+										paddingY={2}
+										display='flex'
+										justifyContent='center'
+									>
 										<Pagination
 											count={Math.ceil(totalCount / Environment.LIMIT_OF_ROW)}
 											color="primary"
 											page={page}
 											onChange={(_, newPage) => setSearchParams({ search, page: newPage.toString() }, { replace: true })}
 										/>
-									</TableCell>
-								</TableRow>
+									</Box>
+								</Box>
 							}
 						</TableFooter>
 					}
