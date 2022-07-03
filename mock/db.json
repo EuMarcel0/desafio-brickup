@@ -2,7 +2,67 @@
 	"job": [
 		{
 			"id": 1,
-			"descricao": "Tarefa 1",
+			"descricao": "Criar menu lateral",
+			"status_pendente": "Pendente",
+			"status_finalizado": "Finalizado"
+		},
+		{
+			"id": 2,
+			"descricao": "Criar context para o tema",
+			"status_pendente": "Pendente",
+			"status_finalizado": "Finalizado"
+		},
+		{
+			"id": 3,
+			"descricao": "Criar barra de ferramentas",
+			"status_pendente": "Pendente",
+			"status_finalizado": "Finalizado"
+		},
+		{
+			"id": 4,
+			"descricao": "Criar botões do meu",
+			"status_pendente": "Pendente",
+			"status_finalizado": "Finalizado"
+		},
+		{
+			"id": 5,
+			"descricao": "Criar toggle para tema ",
+			"status_pendente": "Pendente",
+			"status_finalizado": "Finalizado"
+		},
+		{
+			"id": 6,
+			"descricao": "Criar toggle para tema 2",
+			"status_pendente": "Pendente",
+			"status_finalizado": "Finalizado"
+		},
+		{
+			"id": 7,
+			"descricao": "Criar toggle para tema 3",
+			"status_pendente": "Pendente",
+			"status_finalizado": "Finalizado"
+		},
+		{
+			"id": 8,
+			"descricao": "Criar toggle para tema 4",
+			"status_pendente": "Pendente",
+			"status_finalizado": "Finalizado"
+		},
+		{
+			"id": 9,
+			"descricao": "Criar toggle para tema 5",
+			"status_pendente": "Pendente",
+			"status_finalizado": "Finalizado"
+		},
+		{
+			"id": 10,
+			"descricao": "Criar toggle para tema 6",
+			"status_pendente": "Pendente",
+			"status_finalizado": "Finalizado"
+		},
+		{
+			"id": 11,
+			"descricao": "Criar toggle para tema 7",
 			"status_pendente": "Pendente",
 			"status_finalizado": "Finalizado"
 		}

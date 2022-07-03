@@ -27,6 +27,7 @@ export const ToolbarListing: React.FC<IToolbarListing> = ({
 			component={Paper}
 			paddingY={1}
 			paddingX={1}
+			marginY={2}
 			elevation={4}
 		>
 			<Box

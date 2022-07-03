@@ -16,7 +16,7 @@ export const LigthTheme = createTheme({
 		},
 		background: {
 			default: '#f7f7f7',
-			paper: '#e0e0e0',
+			paper: '#e7e7e7',
 		}
 	}
 });
