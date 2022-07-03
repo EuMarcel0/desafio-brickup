@@ -24,7 +24,7 @@ type TJobsDataProps = {
  * Requisition for get all data of Jobs
  */
 const getAll = async (page = 1, filter = '') : Promise<TJobsDataProps | Error> => {
-	const relativeUrl = `/job?_page=${page}&_limit=${Environment.LIMIT_OF_ROW}&description=${filter}`;
+	const relativeUrl = `/job?_page=${page}&_limit=${Environment.LIMIT_OF_ROW}&description_like=${filter}`;
 	try{
 		const { data, headers } = await Api.get(relativeUrl);
 		if(data){

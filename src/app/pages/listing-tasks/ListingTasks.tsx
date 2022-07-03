@@ -1,12 +1,14 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
+import { LinearProgress, Pagination, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow } from '@mui/material';
 import { IListingJobsDataType, JobService } from '../../shared/services/api/job/JobService';
+import { useAppThemeContext } from '../../shared/contexts';
 import { ToolbarListing } from '../../shared/components';
+import { Environment } from '../../shared/environment';
 import { LayoutBasePage } from '../../shared/layouts';
 import { useDebounce } from '../../shared/hooks';
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
-import { useAppThemeContext } from '../../shared/contexts';
+
 
 export const ListingTasks: React.FC = () => {
 	const [searchParams, setSearchParams] = useSearchParams('');
@@ -14,15 +16,21 @@ export const ListingTasks: React.FC = () => {
 	const [totalCount, setTotalCount] = useState(0);
 	const { debounce } = useDebounce();
 	const { themeName } = useAppThemeContext();
+	const [loading, setLoading] = useState(true);
 
 	const search = useMemo(() => {
 		return searchParams.get('search') || '';
 	}, [searchParams]);
 
-	useEffect(() => {
+	const page = useMemo(() => {
+		return Number(searchParams.get('page') || '1');
+	}, [searchParams]);
 
+	useEffect(() => {
+		setLoading(true);
 		debounce(() => {
-			JobService.getAll(1, search)
+			setLoading(false);
+			JobService.getAll(page, search)
 				.then((response) => {
 					if (response instanceof Error) {
 						alert(response.message);
@@ -33,7 +41,7 @@ export const ListingTasks: React.FC = () => {
 					}
 				});
 		});
-	}, [search]);
+	}, [search, page]);
 
 	return (
 		<LayoutBasePage
@@ -43,10 +51,13 @@ export const ListingTasks: React.FC = () => {
 				buttonText='Nova'
 				showInput
 				textOfInput={search}
-				handleTextInput={text => setSearchParams({ search: text }, { replace: true })}
+				handleTextInput={text => setSearchParams({ search: text, page: '1' }, { replace: true })}
 				handleClearInput={() => setSearchParams('')}
 			/>}
 		>
+			{loading &&
+				<LinearProgress />
+			}
 			<TableContainer component={Paper} elevation={4}>
 				<Table>
 					<TableHead>
@@ -57,21 +68,34 @@ export const ListingTasks: React.FC = () => {
 							<TableCell sx={themeName === 'Light' ? { borderColor: '#CCC' } : { borderColor: '#545454' }}>Ações</TableCell>
 						</TableRow>
 					</TableHead>
-					<TableBody>
+					{tasks.map((item) => (
+						<TableBody key={item.id}>
+							<TableRow>
+								<TableCell sx={themeName === 'Light' ? { borderColor: '#CCC' } : { borderColor: '#545454' }}>{item.description}</TableCell>
+								<TableCell sx={themeName === 'Light' ? { borderColor: '#CCC' } : { borderColor: '#545454' }}>{item.status_finalizado}</TableCell>
+								<TableCell sx={themeName === 'Light' ? { borderColor: '#CCC' } : { borderColor: '#545454' }}>Imagem</TableCell>
+								<TableCell sx={themeName === 'Light' ? { borderColor: '#CCC' } : { borderColor: '#545454' }}>Ações</TableCell>
+							</TableRow>
+						</TableBody>
+					))}
+					<TableFooter sx={{ paddingY: '10px' }}>
 						<TableRow>
-							<TableCell sx={themeName === 'Light' ? { borderColor: '#CCC' } : { borderColor: '#545454' }}>Criar teste unitário</TableCell>
-							<TableCell sx={themeName === 'Light' ? { borderColor: '#CCC' } : { borderColor: '#545454' }}>Pendente</TableCell>
-							<TableCell sx={themeName === 'Light' ? { borderColor: '#CCC' } : { borderColor: '#545454' }}>Imagem</TableCell>
-							<TableCell sx={themeName === 'Light' ? { borderColor: '#CCC' } : { borderColor: '#545454' }}>Ações</TableCell>
+							<TableCell colSpan={4} sx={themeName === 'Light' ? { borderColor: '#CCC' } : { borderColor: '#545454' }}>
+								Loading
+							</TableCell>
 						</TableRow>
-						<TableRow>
-							<TableCell>Criar teste unitário</TableCell>
-							<TableCell>Pendente</TableCell>
-							<TableCell>Imagem</TableCell>
-							<TableCell>Ações</TableCell>
-						</TableRow>
-
-					</TableBody>
+						<TableCell sx={themeName === 'Light' ? { borderColor: '#CCC' } : { borderColor: '#545454' }}></TableCell>
+						<TableCell sx={themeName === 'Light' ? { borderColor: '#CCC' } : { borderColor: '#545454', display: 'flex' }}>
+							{totalCount > 0 && totalCount > Environment.LIMIT_OF_ROW &&
+								<Pagination
+									count={Math.ceil(totalCount / Environment.LIMIT_OF_ROW)}
+									color="primary"
+									page={page}
+									onChange={(_, newPage) => setSearchParams({ search, page: newPage.toString() }, { replace: true })}
+								/>
+							}
+						</TableCell>
+					</TableFooter>
 				</Table>
 			</TableContainer>
 		</LayoutBasePage>
