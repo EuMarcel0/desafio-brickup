@@ -1,8 +1,9 @@
-import { Box, LinearProgress } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { Box, LinearProgress, MenuItem } from '@mui/material';
+import { Form } from '@unform/web';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { TasksForm, ToolbarDetails } from '../../shared/components';
+import { ToolbarDetails, UnFormInput } from '../../shared/components';
 import { LayoutBasePage } from '../../shared/layouts';
 import { JobService } from '../../shared/services/api/job/JobService';
 
@@ -68,14 +69,25 @@ export const EditTasks: React.FC = () => {
 						showButtonDelete={id !== 'new'}
 					/>}
 				>
-					<TasksForm />
+					<Form onSubmit={(dados) => console.log(dados)}>
+						<UnFormInput name='description' />
+						<UnFormInput name='status'
+							select
+							onChange={event => event.target.value as string}
+						>
+							<MenuItem onChange={event => event.target}>Pendente</MenuItem>
+							<MenuItem>Finalizado</MenuItem>
+						</UnFormInput>
+						<button type="submit">Enviar</button>
+					</Form>
 				</LayoutBasePage>
 			}
-			{loading &&
+			{
+				loading &&
 				<Box>
 					<LinearProgress />
 				</Box>
 			}
-		</Box>
+		</Box >
 	);
 };
