@@ -1,10 +1,11 @@
-import { Box, LinearProgress } from '@mui/material';
+import { Box, LinearProgress, MenuItem } from '@mui/material';
 import { Form } from '@unform/web';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Input, Select } from 'unform';
 
 import { ToolbarDetails, UnFormInput } from '../../shared/components';
+import { UnFormSelect } from '../../shared/components/form/UnFormSelect';
 import { LayoutBasePage } from '../../shared/layouts';
 import { JobService } from '../../shared/services/api/job/JobService';
 
@@ -73,11 +74,38 @@ export const EditTasks: React.FC = () => {
 
 
 
+
+
+
+
+
+
+
+
+
 					<Form onSubmit={(dados) => console.log(dados)}>
-						<UnFormInput name='description' />
+						<UnFormInput name='description' select={false} />
+						<UnFormSelect name='status' >
+							<MenuItem value={'Pendente'} defaultValue={'Pendente'}>Pendente</MenuItem>
+							<MenuItem value={'Finalizado'}>Finalizado</MenuItem>
+						</UnFormSelect>
 
 						<input type="submit" />
 					</Form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -4,14 +4,13 @@ import { useField } from '@unform/core';
 import { useEffect, useRef, useState } from 'react';
 
 
-type TUnFormInputProps = TextFieldProps & InputProps & {
+type TUnFormInputProps = TextFieldProps & {
 	name: string;
 	onClick?: () => void;
 }
 
 export const UnFormInput: React.FC<TUnFormInputProps> = ({ name, onClick, ...rest }) => {
 	const { fieldName, registerField, defaultValue, error, clearError } = useField(name);
-	const selectRef = useRef(null);
 	const [value, setValue] = useState(defaultValue || '');
 
 	const theme = useTheme();
@@ -34,9 +33,9 @@ export const UnFormInput: React.FC<TUnFormInputProps> = ({ name, onClick, ...res
 				value={value}
 				onChange={event => setValue(event.target.value)}
 				error={!!error}
+				helperText={error}
 				defaultValue={defaultValue}
 				onKeyDown={() => error ? clearError() : undefined}
-				ref={selectRef}
 
 			/>
 		</Box>
