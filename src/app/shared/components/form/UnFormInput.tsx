@@ -1,15 +1,17 @@
-import { Box, InputLabel, NativeSelect, Select, TextField, TextFieldProps, useMediaQuery, useTheme } from '@mui/material';
+import { Box, TextField, TextFieldProps, InputProps, useMediaQuery, useTheme, useAutocomplete, Input } from '@mui/material';
 
 import { useField } from '@unform/core';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 
-type TUnFormInputProps = TextFieldProps & {
+type TUnFormInputProps = TextFieldProps & InputProps & {
 	name: string;
+	onClick?: () => void;
 }
 
-export const UnFormInput: React.FC<TUnFormInputProps> = ({ name, ...rest }) => {
+export const UnFormInput: React.FC<TUnFormInputProps> = ({ name, onClick, ...rest }) => {
 	const { fieldName, registerField, defaultValue, error, clearError } = useField(name);
+	const selectRef = useRef(null);
 	const [value, setValue] = useState(defaultValue || '');
 
 	const theme = useTheme();
@@ -20,7 +22,7 @@ export const UnFormInput: React.FC<TUnFormInputProps> = ({ name, ...rest }) => {
 		registerField({
 			name: fieldName,
 			getValue: () => value,
-			setValue: (_, newValue) => setValue(newValue)
+			setValue: (ref, newValue) => setValue(newValue)
 		});
 	}, [registerField, fieldName, value]);
 
@@ -32,9 +34,10 @@ export const UnFormInput: React.FC<TUnFormInputProps> = ({ name, ...rest }) => {
 				value={value}
 				onChange={event => setValue(event.target.value)}
 				error={!!error}
-				helperText={error}
 				defaultValue={defaultValue}
 				onKeyDown={() => error ? clearError() : undefined}
+				ref={selectRef}
+
 			/>
 		</Box>
 
