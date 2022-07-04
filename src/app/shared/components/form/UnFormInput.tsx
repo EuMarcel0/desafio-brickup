@@ -27,8 +27,9 @@ export const UnFormInput: React.FC<TUnFormInputProps> = ({ name, onClick, ...res
 
 
 	return (
-		<Box>
+		<Box width='60%'>
 			<TextField
+				fullWidth
 				{...rest}
 				value={value}
 				onChange={event => setValue(event.target.value)}
@@ -36,7 +37,6 @@ export const UnFormInput: React.FC<TUnFormInputProps> = ({ name, onClick, ...res
 				helperText={error}
 				defaultValue={defaultValue}
 				onKeyDown={() => error ? clearError() : undefined}
-
 			/>
 		</Box>
 

@@ -71,44 +71,14 @@ export const EditTasks: React.FC = () => {
 						showButtonDelete={id !== 'new'}
 					/>}
 				>
-
-
-
-
-
-
-
-
-
-
-
-
 					<Form onSubmit={(dados) => console.log(dados)}>
 						<UnFormInput name='description' select={false} />
-						<UnFormSelect name='status' >
-							<MenuItem value={'Pendente'} defaultValue={'Pendente'}>Pendente</MenuItem>
-							<MenuItem value={'Finalizado'}>Finalizado</MenuItem>
+						<UnFormSelect name='status' defaultValue='Pendente' defaultChecked>
+							<MenuItem key={1} selected={true} value='Pendente'>Pendente</MenuItem>
+							<MenuItem key={2} value='Finalizado'>Finalizado</MenuItem>
 						</UnFormSelect>
-
-						<input type="submit" />
+						<button type="submit" value='Enviar'>Enviar</button>
 					</Form>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 				</LayoutBasePage>
 			}
 			{
