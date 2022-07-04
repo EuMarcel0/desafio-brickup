@@ -23,7 +23,7 @@ export const Home: React.FC = () => {
 			</LayoutBasePage>
 			<Box
 				width='100%'
-				height='100%'
+				height={mdDown ? 'calc(100vh - 100px)' : smDown ? 'calc(100vh - 1px)' : 'calc(100vh - 100px)'}
 				display='flex'
 				flexDirection='column'
 				justifyContent='center'
@@ -34,9 +34,9 @@ export const Home: React.FC = () => {
 					justifyContent='center'
 					marginY={3}
 					width={mdDown ? '300px' : smDown ? '200px' : 'auto'}
-					height={mdDown ? 'calc(100vh - 200px)' : smDown ? 'calc(100vh - 200px)' : 'auto'}
+					height={mdDown ? 'calc(100vh - 100px)' : smDown ? 'calc(100vh - 1px)' : 'calc(100vh - 100px)'}
 				>
-					<img src={Bg2} style={{ width: '100%' }} />
+					<img src={Bg2} style={{ width: '90%' }} />
 				</Box>
 				<Box
 					width='100%'

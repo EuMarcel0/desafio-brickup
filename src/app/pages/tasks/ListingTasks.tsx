@@ -44,9 +44,6 @@ export const ListingTasks: React.FC = () => {
 		});
 	}, [search, page]);
 
-	const pageReload = () => {
-		window.location.reload();
-	};
 
 	const handleDelete = (id: number) => {
 		if (confirm('Deseja realmente apagar esta tarefa?')) {
@@ -61,7 +58,6 @@ export const ListingTasks: React.FC = () => {
 							];
 						});
 						alert('Registro apagado com sucesso!');
-						pageReload();
 					}
 				});
 		}
@@ -114,7 +110,7 @@ export const ListingTasks: React.FC = () => {
 										<IconButton onClick={() => handleDelete(item.id)}>
 											<Icon>delete</Icon>
 										</IconButton>
-										<Button variant='contained'>Concluir</Button>
+										<Button variant='contained' onClick={() => navigate(`/tasks/edit/${item.id}`)} disabled={item.status === 'Finalizado'} >Concluir</Button>
 									</Box>
 								</TableCell>
 							</TableRow>

@@ -1,44 +1,48 @@
 import { Box, TextField, TextFieldProps, InputProps, useMediaQuery, useTheme, useAutocomplete, Input } from '@mui/material';
 
 import { useField } from '@unform/core';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 
 type TUnFormInputProps = TextFieldProps & {
 	name: string;
-	onClick?: () => void;
 }
 
-export const UnFormInput: React.FC<TUnFormInputProps> = ({ name, onClick, ...rest }) => {
-	const { fieldName, registerField, defaultValue, error, clearError } = useField(name);
-	const [value, setValue] = useState(defaultValue || '');
-
+export const UnFormInput: React.FC<TUnFormInputProps> = ({ name, ...rest }) => {
 	const theme = useTheme();
 	const smDown = useMediaQuery(theme.breakpoints.down('sm'));
 	const mdDown = useMediaQuery(theme.breakpoints.down('md'));
+
+	const { fieldName, registerField, defaultValue, error, clearError } = useField(name);
+	const [value, setValue] = useState(defaultValue || '');
 
 	useEffect(() => {
 		registerField({
 			name: fieldName,
 			getValue: () => value,
-			setValue: (ref, newValue) => setValue(newValue)
+			setValue: (ref, newValue) => (newValue)
 		});
 	}, [registerField, fieldName, value]);
 
 
 	return (
-		<Box width='60%'>
+		<Box
+			width={smDown ? '90%' : mdDown ? '75%' : '60%'}
+			marginX={'auto'}
+			marginTop={2}
+		>
 			<TextField
-				fullWidth
 				{...rest}
-				value={value}
-				onChange={event => setValue(event.target.value)}
+				fullWidth
+				label='Descrição da tarefa'
 				error={!!error}
 				helperText={error}
 				defaultValue={defaultValue}
+				value={value}
+				onChange={event => setValue(event.target.value)}
 				onKeyDown={() => error ? clearError() : undefined}
 			/>
-		</Box>
+		</Box >
 
 	);
 };

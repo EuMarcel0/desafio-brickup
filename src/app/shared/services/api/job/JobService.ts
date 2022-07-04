@@ -4,15 +4,13 @@ import Api from '../Api';
 export interface IListingJobsDataType {
 	id: number;
 	description: string;
-	status_pendente: string;
-	status_finalizado: string;
+	status: string;
 }
 
 export interface IDetailsJobsDataType {
 	id: number;
 	description: string;
-	status_pendente: string;
-	status_finalizado: string;
+	status: string;
 }
 
 type TJobsDataProps = {
@@ -66,7 +64,7 @@ const create = async (jobData: Omit<IDetailsJobsDataType,'id'>) : Promise<number
 		return new Error('Erro ao criar tarefas');
 	}catch( error ){
 		console.error(error);
-		return new Error((error as {message: string}).message || 'Erro ao criar tarefas');
+		return new Error((error as {message: string}).message || 'Erro ao criar tarefa');
 	}
 };
 /**

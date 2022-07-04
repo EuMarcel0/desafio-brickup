@@ -1,26 +1,27 @@
 import { Box, LinearProgress, MenuItem } from '@mui/material';
+import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Input, Select } from 'unform';
 
-import { ToolbarDetails, UnFormInput } from '../../shared/components';
+import { ToolbarDetails, UnFormFilled, UnFormInput } from '../../shared/components';
 import { UnFormSelect } from '../../shared/components/form/UnFormSelect';
 import { LayoutBasePage } from '../../shared/layouts';
 import { JobService } from '../../shared/services/api/job/JobService';
 
 
 interface IFormProps {
-	description: string;
 	status: string;
+	description: string;
+	img: string;
 }
-
 
 export const EditTasks: React.FC = () => {
 	const { id = 'new' } = useParams<'id'>();
 	const navigate = useNavigate();
 	const [loading, setLoading] = useState(false);
 	const [name, setName] = useState('');
+	const formRef = useRef<FormHandles>(null);
 
 	useEffect(() => {
 		if (id !== 'new') {
@@ -33,6 +34,7 @@ export const EditTasks: React.FC = () => {
 						navigate('/tasks');
 					} else {
 						setName(response.description);
+						formRef.current?.setData(response);
 						console.log(response);
 					}
 
@@ -52,10 +54,31 @@ export const EditTasks: React.FC = () => {
 					}
 				});
 		}
+
 	};
 
 	const handleSave = (dados: IFormProps) => {
-		console.log(dados);
+		if (id === 'new') {
+			JobService.create(dados)
+				.then((response) => {
+					if (response instanceof Error) {
+						alert(response.message);
+					} else {
+						alert('Tarefa cadastrada com sucesso!');
+						navigate(`/tasks/edit/${response}`);
+					}
+				});
+			console.log(dados);
+		} else {
+			JobService.updateById(Number(id), { id: Number(id), ...dados })
+				.then((response) => {
+					if (response instanceof Error) {
+						alert(response.message);
+					} else {
+						alert('Rarefa alterada com sucesso');
+					}
+				});
+		}
 	};
 
 	return (
@@ -67,25 +90,21 @@ export const EditTasks: React.FC = () => {
 					toolbar={<ToolbarDetails
 						onClickInBack={() => navigate('/tasks')}
 						onClickInDelete={() => handleDelete(Number(id))}
-						onClickInSave={() => handleSave}
+						onClickInSave={() => formRef.current?.submitForm()}
 						showButtonDelete={id !== 'new'}
 					/>}
 				>
-					<Form onSubmit={(dados) => console.log(dados)}>
-						<UnFormInput name='description' select={false} />
+
+					<Form ref={formRef} onSubmit={handleSave}>
+						<UnFormInput name='description' />
 						<UnFormSelect name='status' defaultValue='Pendente' defaultChecked>
 							<MenuItem key={1} selected={true} value='Pendente'>Pendente</MenuItem>
 							<MenuItem key={2} value='Finalizado'>Finalizado</MenuItem>
 						</UnFormSelect>
-						<button type="submit" value='Enviar'>Enviar</button>
+						<UnFormFilled name='img' />
 					</Form>
+
 				</LayoutBasePage>
-			}
-			{
-				loading &&
-				<Box>
-					<LinearProgress />
-				</Box>
 			}
 		</Box >
 	);
