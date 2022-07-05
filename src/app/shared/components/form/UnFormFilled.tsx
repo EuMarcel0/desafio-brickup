@@ -21,7 +21,7 @@ export const UnFormFilled: React.FC<IUnFormFilledProps> = ({ name, ...rest }) =>
 		registerField({
 			name: name,
 			getValue: () => value,
-			setValue: (_, newValue) => (newValue),
+			setValue: (_, newValue) => setValue(newValue),
 		});
 		console.log(value);
 	}, []);

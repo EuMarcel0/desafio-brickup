@@ -20,7 +20,7 @@ export const UnFormInput: React.FC<TUnFormInputProps> = ({ name, ...rest }) => {
 		registerField({
 			name: fieldName,
 			getValue: () => value,
-			setValue: (ref, newValue) => (newValue)
+			setValue: (ref, newValue) => setValue(newValue)
 		});
 	}, [registerField, fieldName, value]);
 

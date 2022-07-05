@@ -13,7 +13,6 @@ import { JobService } from '../../shared/services/api/job/JobService';
 interface IFormProps {
 	status: string;
 	description: string;
-	img: string;
 }
 
 export const EditTasks: React.FC = () => {
@@ -98,8 +97,8 @@ export const EditTasks: React.FC = () => {
 					<Form ref={formRef} onSubmit={handleSave}>
 						<UnFormInput name='description' />
 						<UnFormSelect name='status' defaultValue='Pendente' defaultChecked>
-							<MenuItem key={1} selected={true} value='Pendente'>Pendente</MenuItem>
-							<MenuItem key={2} value='Finalizado'>Finalizado</MenuItem>
+							<MenuItem selected={true} value='Pendente'>Pendente</MenuItem>
+							<MenuItem value='Finalizado'>Finalizado</MenuItem>
 						</UnFormSelect>
 						<UnFormFilled name='img' />
 					</Form>

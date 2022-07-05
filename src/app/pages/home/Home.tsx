@@ -1,13 +1,29 @@
 import { GitHub, LinkedIn, WhatsApp } from '@mui/icons-material';
 import { Box, Icon, IconButton, Typography, useMediaQuery, useTheme } from '@mui/material';
-import Bg from '../../../assets/images/bg.png';
+import { useEffect, useState } from 'react';
 import Bg2 from '../../../assets/images/undraw_teaching_re_g7e3.svg';
 import { LayoutBasePage } from '../../shared/layouts';
+import { JobService } from '../../shared/services/api/job/JobService';
 
 export const Home: React.FC = () => {
 	const theme = useTheme();
 	const smDown = useMediaQuery(theme.breakpoints.down('sm'));
 	const mdDown = useMediaQuery(theme.breakpoints.down('md'));
+	const [totalCount, setTotalCount] = useState(0);
+
+	useEffect(() => {
+		JobService.getAll()
+			.then((response) => {
+
+				if (response instanceof Error) {
+					alert(response.message);
+				} else {
+					console.log(response);
+					setTotalCount(response.totalCount);
+				}
+			});
+
+	}, []);
 
 	return (
 		<Box
@@ -16,8 +32,8 @@ export const Home: React.FC = () => {
 			flexDirection='column'
 		>
 			<LayoutBasePage
-				title='Bem-vindo, Dev'
-				icon='person'
+				title={`Bem-vindo, John. Há ${totalCount === 1 ? totalCount + ' tarefa' : totalCount + ' tarefas'}`}
+				icon=' '
 
 			>
 			</LayoutBasePage>

@@ -44,7 +44,7 @@ export const MenuOptions = () => {
 		<Box display='flex' flexDirection='column' height='100%'>
 			<Box>
 				<MenuItemLink
-					to='/pagina-inicial'
+					to='/home'
 					icon='home'
 					label='Página inicial'
 					onClick={toggleMenuOpen}

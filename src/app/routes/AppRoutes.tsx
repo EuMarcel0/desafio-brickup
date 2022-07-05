@@ -10,10 +10,10 @@ export const AppRoutes = () => {
 
 	return (
 		<Routes>
-			<Route path='/pagina-inicial' element={<Home />} />
+			<Route path='/home' element={<Home />} />
 			<Route path='/tasks' element={<ListingTasks />} />
 			<Route path='/tasks/edit/:id' element={<EditTasks />} />
-			<Route path='*' element={<Navigate to='/pagina-inicial' />} />
+			<Route path='*' element={<Navigate to='/home' />} />
 		</Routes>
 	);
 };

@@ -7,7 +7,7 @@ interface ISideMenu {
 	userName?: string;
 }
 
-export const SideMenu: React.FC<ISideMenu> = ({ children, userName = 'Olá, Dev' }) => {
+export const SideMenu: React.FC<ISideMenu> = ({ children, userName = 'Olá, John' }) => {
 	const theme = useTheme();
 	const smDown = useMediaQuery(theme.breakpoints.down('sm'));
 	const { isMenuOpen, toggleMenuOpen } = useMenuOpenContext();
