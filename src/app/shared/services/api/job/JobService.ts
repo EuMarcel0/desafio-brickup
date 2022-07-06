@@ -5,12 +5,14 @@ export interface IListingJobsDataType {
 	id: number;
 	description: string;
 	status: string;
+	image: string;
 }
 
 export interface IDetailsJobsDataType {
 	id: number;
 	description: string;
 	status: string;
+	image: string;
 }
 
 type TJobsDataProps = {

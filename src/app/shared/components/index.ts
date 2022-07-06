@@ -4,3 +4,4 @@ export * from './toolbar/ToolbarDetails';
 export * from './toolbar/ToolbarListing';
 export * from './form/UnFormInput';
 export * from './form/UnFormFilled';
+export * from './image-modal/ImageModal';

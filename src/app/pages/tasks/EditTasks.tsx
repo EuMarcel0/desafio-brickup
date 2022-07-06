@@ -13,6 +13,7 @@ import { JobService } from '../../shared/services/api/job/JobService';
 interface IFormProps {
 	status: string;
 	description: string;
+	image: string;
 }
 
 export const EditTasks: React.FC = () => {
@@ -64,7 +65,7 @@ export const EditTasks: React.FC = () => {
 						alert(response.message);
 					} else {
 						alert('Tarefa cadastrada com sucesso!');
-						navigate(`/tasks/edit/${response}`);
+						navigate('/tasks');
 					}
 				});
 			console.log(dados);
@@ -74,7 +75,7 @@ export const EditTasks: React.FC = () => {
 					if (response instanceof Error) {
 						alert(response.message);
 					} else {
-						alert('Rarefa alterada com sucesso');
+						alert('Tarefa alterada com sucesso');
 					}
 				});
 		}

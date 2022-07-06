@@ -33,6 +33,7 @@ export const UnFormInput: React.FC<TUnFormInputProps> = ({ name, ...rest }) => {
 		>
 			<TextField
 				{...rest}
+				autoFocus
 				fullWidth
 				label='Descrição da tarefa'
 				error={!!error}

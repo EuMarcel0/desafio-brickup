@@ -4,10 +4,11 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Box, Button, Icon, IconButton, LinearProgress, Pagination, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow } from '@mui/material';
 import { IListingJobsDataType, JobService } from '../../shared/services/api/job/JobService';
 import { useAppThemeContext } from '../../shared/contexts';
-import { ToolbarListing } from '../../shared/components';
+import { ImageModal, ToolbarListing } from '../../shared/components';
 import { Environment } from '../../shared/environment';
 import { LayoutBasePage } from '../../shared/layouts';
 import { useDebounce } from '../../shared/hooks';
+import { InsertPhoto } from '@mui/icons-material';
 
 
 export const ListingTasks: React.FC = () => {
@@ -18,6 +19,7 @@ export const ListingTasks: React.FC = () => {
 	const { themeName } = useAppThemeContext();
 	const [loading, setLoading] = useState(true);
 	const navigate = useNavigate();
+	const [open, setOpen] = useState(false);
 
 	const search = useMemo(() => {
 		return searchParams.get('search') || '';
@@ -98,9 +100,8 @@ export const ListingTasks: React.FC = () => {
 								<TableCell sx={themeName === 'Light' ? { borderColor: '#CCC' } : { borderColor: '#545454' }}>{item.description}</TableCell>
 								<TableCell sx={themeName === 'Light' ? { borderColor: '#CCC' } : { borderColor: '#545454' }}>{item.status}</TableCell>
 								<TableCell sx={themeName === 'Light' ? { borderColor: '#CCC' } : { borderColor: '#545454' }}>
-									<IconButton>
-										<Icon>insert_photo</Icon>
-									</IconButton>
+
+									<ImageModal />
 								</TableCell>
 								<TableCell align='right' sx={themeName === 'Light' ? { borderColor: '#CCC' } : { borderColor: '#545454' }}>
 									<Box display='flex' justifyContent='end' alignItems='center' gap={2}>
