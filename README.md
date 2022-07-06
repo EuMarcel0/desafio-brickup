@@ -17,7 +17,7 @@
 
 ## 🚀 Go?
 
-    For utilizing the app, click here: https://crud-tasks-project.netlify.app/home
+    For utilizing the app, access here: https://crud-tasks-project.netlify.app/
 
 <br/><br/>
 
