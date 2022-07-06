@@ -1,6 +1,7 @@
 import { Button, Fade, Icon, IconButton, Modal, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { useState } from 'react';
+import { SwiperSlide } from 'swiper/react';
 
 import ServiceImage from '../../../../assets/images/tasks.png';
 
@@ -38,6 +39,7 @@ export const ImageModal: React.FC = () => {
 					timeout: 500,
 				}}
 			>
+
 				<Fade in={open}>
 					<Box sx={style} display='flex' flexDirection='column' alignItems='center' justifyContent='center' position='relative'>
 						<Box
@@ -55,7 +57,7 @@ export const ImageModal: React.FC = () => {
 							top={4}
 						>
 							<Typography id="transition-modal-title" variant='caption' component="h2">
-								Ilustrações das tarefas
+								Ilustração da tarefa
 							</Typography>
 						</Box>
 						<Box flex='1' marginTop={4}>
