@@ -3,6 +3,8 @@
 <p>Application created for test of Junior developer, but i just developed the front-end, utilizing json-server in back-end</p>
 <hr>
 
+<a href='https://youtu.be/X-xxXEmYqz4' target='_blank'>Video of application</a>
+
 <p>1 - Home page with simple dashboard</p>
 <img src='src/assets/images/home_page.png'>
 <br/><br/>
